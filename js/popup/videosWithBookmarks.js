@@ -73,6 +73,11 @@ export const renderSidebarModalWithVideos = async () => {
 		}
 	});
 
+	if (sortedVideosWithBookmarksVideoIds.length === 0) {
+		sidebarVideoListElem.innerHTML = '<i class="row">No videos with bookmarks yet</i>';
+		return;
+	}
+
 	// Go through all the videos and render the thumbnail image, video title, and the number of bookmarks for that video.
 	sortedVideosWithBookmarksVideoIds.forEach((videoId) => {
 		const videoWithBookmarksElem = getVideoWithBookmarksElem(videoId);

@@ -50,30 +50,38 @@ const toggleSettingsSidebarModal = () => {
  * @description Render the "Settings" modal.
  */
 export const renderSettingsModalContent = async () => {
+	// NOTE: "fetchUserSettings" fills in the default value (DEFAULT_USER_SETTINGS in utils.js) for any setting that hasn't been set yet.
 	await fetchUserSettings();
-
-	// if there are no user settings, set the default settings.
-	if (!state.userSettings) {
-		const defaultUserSettings = {
-			captureFrames: true,
-			sortBy: 'Most Recently Updated',
-			showBookmarksProgressBar: true,
-			scrollNextBookmarkIntoView: true,
-			splitVideoIntoParts: true,
-		};
-
-		await chrome.storage.sync.set({
-			userSettings: JSON.stringify(defaultUserSettings),
-		});
-
-		await fetchUserSettings();
-	}
 
 	renderSortByOptions();
 	renderCheckboxCaptureFrames();
 	renderCheckboxShowBookmarksProgressBar();
 	renderCheckboxScrollNextBookmarkIntoView();
-	renderCheckboxSplitVideoIntoParts()
+	renderCheckboxSplitVideoIntoParts();
+	renderBackupButtons();
+};
+
+/**
+ * @description Render the "Export Bookmarks" and "Import Bookmarks" buttons.
+ */
+const renderBackupButtons = () => {
+	// Export: Download everything in Chrome's Storage (all videos with bookmarks and the user settings) as a JSON file.
+	document.getElementById('export-bookmarks-button').onclick = async () => {
+		const allItems = await chrome.storage.sync.get(null);
+		const blob = new Blob([JSON.stringify(allItems, null, 2)], { type: 'application/json' });
+		const date = new Date().toISOString().slice(0, 10);
+
+		const linkElement = document.createElement('a');
+		linkElement.href = URL.createObjectURL(blob);
+		linkElement.download = `youtube-bookmarks-${date}.json`;
+		linkElement.click();
+		URL.revokeObjectURL(linkElement.href);
+	};
+
+	// Import: Open the import page in a new tab. This can't be done in the popup itself because the popup closes as soon as the file picker opens.
+	document.getElementById('import-bookmarks-button').onclick = () => {
+		chrome.tabs.create({ url: chrome.runtime.getURL('import.html') });
+	};
 };
 
 const renderCheckboxCaptureFrames = () => {
@@ -147,9 +155,7 @@ const renderCheckboxScrollNextBookmarkIntoView = () => {
 };
 
 const renderCheckboxSplitVideoIntoParts = () => {
-	const checkboxSplitVideoIntoPartsElement = document.getElementById(
-		'checkbox-split-video-into-parts'
-	);
+	const checkboxSplitVideoIntoPartsElement = document.getElementById('checkbox-split-video-into-parts');
 	checkboxSplitVideoIntoPartsElement.checked = state.userSettings.splitVideoIntoParts ? true : false;
 
 	checkboxSplitVideoIntoPartsElement.addEventListener('click', async (e) => {
@@ -163,10 +169,8 @@ const renderCheckboxSplitVideoIntoParts = () => {
 		});
 
 		// Update the user settings in Content Script so that the "editVideoProgressBarAndTimeVisually" function can use the latest "userSettings.splitVideoIntoParts" value.
-		await chrome.tabs.sendMessage(
-			state.activeTab.id,
-			{ type: 'update-user-settings' }
-		);
+		// This fails on non-YouTube tabs (there's no content script there), which is fine.
+		await chrome.tabs.sendMessage(state.activeTab.id, { type: 'update-user-settings' }).catch(() => {});
 
 		await fetchUserSettings();
 		await renderBookmarkElementsForCurrentVideo();

@@ -40,7 +40,8 @@ export const fetchBookmarks = async () => {
 export const fetchUserSettings = async () => {
 	const obj = await chrome.storage.sync.get('userSettings');
 	const chromeStorageUserSettingsJsonObj = obj && obj['userSettings'] ? JSON.parse(obj['userSettings']) : {};
-	state.userSettings = chromeStorageUserSettingsJsonObj;
+	// Use the default value for any setting that hasn't been set yet.
+	state.userSettings = { ...DEFAULT_USER_SETTINGS, ...chromeStorageUserSettingsJsonObj };
 };
 
 /**

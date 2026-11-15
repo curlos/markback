@@ -42,7 +42,22 @@ document.onreadystatechange = async () => {
 						{ type: 'content-get-current-video-time-and-duration' },
 						{},
 						(videoCurrentTimeAndDuration) => {
+							if (!videoCurrentTimeAndDuration) {
+								return;
+							}
+
 							const { currentTime, duration } = videoCurrentTimeAndDuration;
+							const firstBookmark = state.currentVideoBookmarks[0];
+							const videoRestarted =
+								currentTime < state.video.currentTime - 1 &&
+								firstBookmark &&
+								currentTime < firstBookmark.time;
+
+							// If the video restarted (for example, a Short looping back to the start), scroll back to the first bookmark at the top.
+							if (videoRestarted && state.userSettings && state.userSettings.scrollNextBookmarkIntoView) {
+								document.getElementById('bookmarks').scrollTo({ top: 0, behavior: 'smooth' });
+							}
+
 							state.video.currentTime = currentTime;
 							state.video.duration = duration;
 						}

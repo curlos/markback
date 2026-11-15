@@ -2,7 +2,7 @@
 <br />
 <p align="center">
   <a href="[https://github.com/Curlos/Rock-Paper-Scissors](https://github.com/curlos/YouTube-Timestamp-Bookmark-Chrome-Extension)">
-    <img src="/assets/bookmark.png" alt="Logo" width="80" height="80">
+    <img src="/assets/icon-128.png" alt="Logo" width="80" height="80">
   </a>
 
   <h3 align="center">YouTube Timestamp Bookmarker (Chrome Extension)</h3>

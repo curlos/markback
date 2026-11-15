@@ -1,4 +1,15 @@
 /**
+ * @description The default user settings. Used for any setting the user hasn't set yet (such as when the extension is first installed).
+ */
+const DEFAULT_USER_SETTINGS = {
+	captureFrames: true,
+	sortBy: 'Most Recently Updated',
+	showBookmarksProgressBar: true,
+	scrollNextBookmarkIntoView: true,
+	splitVideoIntoParts: false,
+};
+
+/**
  * @description Get the active tab.
  * @param {Function} sendResponse
  * @returns {Object}
@@ -31,7 +42,7 @@ const formatTime = (seconds) => {
 	const formattedSeconds = String(remainingSeconds).padStart(2, '0');
 	if (hours > 0) {
 		// Hours present, include them in the format
-		return `${hours}:${minutes}:${formattedSeconds}`;
+		return `${hours}:${String(minutes).padStart(2, '0')}:${formattedSeconds}`;
 	} else {
 		// No hours, return only minutes and seconds
 		return `${minutes}:${formattedSeconds}`;
@@ -92,8 +103,6 @@ const captureFrameAtTimestamp = async (videoElement, timestamp) => {
 const getIconSVG = (name, color = 'white', width = '16px', height = '16px') => {
 	const getIconSVGPath = () => {
 		switch (name) {
-			case 'bookmark':
-				return `<path fill="${color}" d="M0 48C0 21.5 21.5 0 48 0l0 48 0 393.4 130.1-92.9c8.3-6 19.6-6 27.9 0L336 441.4 336 48 48 48 48 0 336 0c26.5 0 48 21.5 48 48l0 440c0 9-5 17.2-13 21.3s-17.6 3.4-24.9-1.8L192 397.5 37.9 507.5c-7.3 5.2-16.9 5.9-24.9 1.8S0 497 0 488L0 48z"/>`;
 			case 'play':
 				return `<path fill="${color}" d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80L0 432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/>`;
 			case 'delete':
@@ -105,7 +114,7 @@ const getIconSVG = (name, color = 'white', width = '16px', height = '16px') => {
 			case 'pen-to-square':
 				return `<path fill="${color}" d="M471.6 21.7c-21.9-21.9-57.3-21.9-79.2 0L362.3 51.7l97.9 97.9 30.1-30.1c21.9-21.9 21.9-57.3 0-79.2L471.6 21.7zm-299.2 220c-6.1 6.1-10.8 13.6-13.5 21.9l-29.6 88.8c-2.9 8.6-.6 18.1 5.8 24.6s15.9 8.7 24.6 5.8l88.8-29.6c8.2-2.7 15.7-7.4 21.9-13.5L437.7 172.3 339.7 74.3 172.4 241.7zM96 64C43 64 0 107 0 160L0 416c0 53 43 96 96 96l256 0c53 0 96-43 96-96l0-96c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 96c0 17.7-14.3 32-32 32L96 448c-17.7 0-32-14.3-32-32l0-256c0-17.7 14.3-32 32-32l96 0c17.7 0 32-14.3 32-32s-14.3-32-32-32L96 64z"/>`;
 			case 'chevron-right':
-				return `<path fill="${color}" d="M310.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-192 192c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L242.7 256 73.4 86.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l192 192z"/>`
+				return `<path fill="${color}" d="M310.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-192 192c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L242.7 256 73.4 86.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l192 192z"/>`;
 		}
 	};
 
@@ -148,11 +157,7 @@ const waitForContentScriptWithInterval = (tabId, callback) => {
 			tabId,
 			{ type: 'check-ready' }, // Message to check readiness
 			(response) => {
-				console.log(response);
-
 				if (chrome.runtime.lastError || !response?.ready) {
-					console.log('ERROR');
-					console.log(response);
 					// Content script is not ready yet, continue polling
 					return;
 				}
@@ -167,24 +172,23 @@ const waitForContentScriptWithInterval = (tabId, callback) => {
 	}, 100); // Check every 100ms
 };
 
-
 /**
  * @description Get a bookmark's (or part's) "start", "current", and "end" times as well as the part's index. This is necessary info that will tell us what to "visually" display in the video's progress bar as well as in the timestamp. Also used for the popup's bookmarks. This is extremely crucial in mimicing the "splitting" of the video into parts without actually having a separate video for each part.
- * @param {Array<Object>} currentVideoBookmarks 
- * @param {Number} videoCurrentTime 
- * @param {Object} bookmark 
- * @param {Number} i 
+ * @param {Array<Object>} currentVideoBookmarks
+ * @param {Number} videoCurrentTime
+ * @param {Object} bookmark
+ * @param {Number} i
  * @returns {Object}
  */
 const getBookmarkCurrentAndEndTime = (currentVideoBookmarks, videoCurrentTime, bookmark, i) => {
-	const notTheFirstBookmark = i > 0
-	const prevBookmarkTime = (notTheFirstBookmark && currentVideoBookmarks[i - 1] && currentVideoBookmarks[i - 1].time)
-	const startTime = prevBookmarkTime || 0
+	const notTheFirstBookmark = i > 0;
+	const prevBookmarkTime = notTheFirstBookmark && currentVideoBookmarks[i - 1] && currentVideoBookmarks[i - 1].time;
+	const startTime = prevBookmarkTime || 0;
 
 	return {
 		startTime,
 		currentTime: videoCurrentTime - startTime,
 		endTime: bookmark.time - prevBookmarkTime,
-		currentBookmarkIndex: i
-	}
-}
+		currentBookmarkIndex: i,
+	};
+};

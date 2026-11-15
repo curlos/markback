@@ -1,10 +1,13 @@
 html {
 	background-color: rgb(50, 50, 50);
 	width: 320px;
-	overflow: none;
+	overflow: hidden;
 }
 
+/* Keep the hidden sidebars (placed just outside the popup until opened) from making the popup wider. */
 body {
+	position: relative;
+	overflow: hidden;
 	margin: 0;
 	padding: 0;
 	user-select: none;
@@ -194,6 +197,8 @@ body {
 
 .video-with-bookmarks-title {
 	font-weight: bold;
+	/* Break long titles (like a string of hashtags) instead of making the list scroll sideways. */
+	overflow-wrap: anywhere;
 }
 
 /* Styles applied within the .gray-scrollbar class context */
@@ -314,6 +319,7 @@ input:checked + .slider:before {
 	align-items: center;
 	gap: 10px;
 	font-size: 16px;
+	cursor: pointer;
 }
 
 .delete-icon-outer-wrapper {
@@ -427,4 +433,23 @@ input:checked + .slider:before {
 
 .gray-bookmark-time {
 	color: gray;
+}
+.backup-buttons {
+	display: flex;
+	gap: 8px;
+	margin-top: 8px;
+}
+
+.backup-button {
+	flex: 1;
+	padding: 8px;
+	border: none;
+	background-color: #636363;
+	color: white;
+	font-size: 14px;
+	cursor: pointer;
+}
+
+.backup-button:hover {
+	background-color: #787878;
 }

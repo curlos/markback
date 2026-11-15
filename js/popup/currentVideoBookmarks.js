@@ -125,8 +125,13 @@ export const addNewBookmarkElem = async (
 	const noteElement = document.createElement('div');
 	const progressContainer = document.createElement('div');
 
-	const { startTime } = getBookmarkCurrentAndEndTime(state.currentVideoBookmarks, state.video.currentTime, bookmark, index)
-	const videoTimeToPlay = state.userSettings.splitVideoIntoParts ? startTime : bookmark.time
+	const { startTime } = getBookmarkCurrentAndEndTime(
+		state.currentVideoBookmarks,
+		state.video.currentTime,
+		bookmark,
+		index
+	);
+	const videoTimeToPlay = state.userSettings.splitVideoIntoParts ? startTime : bookmark.time;
 
 	const toggleEditNoteForm = () => {
 		formElement.classList.toggle('show-edit-form');
@@ -165,7 +170,7 @@ export const addNewBookmarkElem = async (
 	};
 
 	const addTimestampControlsAndFrame = () => {
-		updateBookmarkTimestamp()
+		updateBookmarkTimestamp();
 		bookmarkTitleElement.className = 'bookmark-title';
 		bookmarkTitleElement.addEventListener('click', () => {
 			handlePlayVideo(videoTimeToPlay);
@@ -301,9 +306,8 @@ export const addNewBookmarkElem = async (
 
 			if (state.userSettings.splitVideoIntoParts) {
 				// This updates the bookmark timestamp every X milliseconds because the timestamp number will change contionously if "state.userSettings.splitVideoIntoParts" is true.
-				updateBookmarkTimestamp()
+				updateBookmarkTimestamp();
 			}
-
 		}, 100);
 
 		state.bookmarkProgressBarIntervalIds.push(intervalId);
@@ -313,15 +317,23 @@ export const addNewBookmarkElem = async (
 	 * @description Update the "bookmark-title" elem with the correct displayed timestamp.
 	 */
 	const updateBookmarkTimestamp = () => {
-		const fullBookmarkTime = formatTime(Math.floor(bookmark.time))
-		const { currentTime, endTime } = getBookmarkCurrentAndEndTime(state.currentVideoBookmarks, state.video.currentTime, bookmark, index)
+		const fullBookmarkTime = formatTime(Math.floor(bookmark.time));
+		const { currentTime, endTime } = getBookmarkCurrentAndEndTime(
+			state.currentVideoBookmarks,
+			state.video.currentTime,
+			bookmark,
+			index
+		);
 
-		const currentTimeToUse = Math.min(Math.max(currentTime, 0), endTime)
-		const displayedTimestamp = state.userSettings.splitVideoIntoParts ? `${formatTime(Math.floor(currentTimeToUse))} / ${formatTime(Math.floor(endTime))}` : fullBookmarkTime
-		
+		const currentTimeToUse = Math.min(Math.max(currentTime, 0), endTime);
+		const displayedTimestamp = state.userSettings.splitVideoIntoParts
+			? `${formatTime(Math.floor(currentTimeToUse))} / ${formatTime(Math.floor(endTime))}`
+			: fullBookmarkTime;
 
-		bookmarkTitleElement.innerHTML = state.userSettings.splitVideoIntoParts ? `${displayedTimestamp} • Part ${index + 1}/${bookmarksWithProgress.length} <span class="gray-bookmark-time">(${formatTime(Math.floor(bookmark.time))})</span>` : displayedTimestamp;
-	}
+		bookmarkTitleElement.innerHTML = state.userSettings.splitVideoIntoParts
+			? `${displayedTimestamp} • Part ${index + 1}/${bookmarksWithProgress.length} <span class="gray-bookmark-time">(${formatTime(Math.floor(bookmark.time))})</span>`
+			: displayedTimestamp;
+	};
 
 	addTimestampControlsAndFrame();
 	addFormWithTextareaAndButtons();
