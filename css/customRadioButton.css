@@ -34,7 +34,7 @@
 
 /* Outer Circle Border Color (Default) */
 .radio-outer-circle.border-color-gray-100 {
-	border-color: red;
+	border-color: #7b7bf0;
 }
 
 /* Inner Circle */
@@ -46,5 +46,5 @@
 
 /* Inner Circle Background Color (Default) */
 .radio-inner-circle.bg-color-gray-100 {
-	background-color: red;
+	background-color: #7b7bf0;
 }

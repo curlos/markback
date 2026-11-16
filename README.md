@@ -1,122 +1,101 @@
-<!-- PROJECT LOGO -->
-<br />
 <p align="center">
-  <a href="[https://github.com/Curlos/Rock-Paper-Scissors](https://github.com/curlos/YouTube-Timestamp-Bookmark-Chrome-Extension)">
-    <img src="/assets/icon-128.png" alt="Logo" width="80" height="80">
-  </a>
-
-  <h3 align="center">YouTube Timestamp Bookmarker (Chrome Extension)</h3>
+  <img src="assets/icon-128.png" alt="" width="96" height="96">
 </p>
 
+<h1 align="center">Markback</h1>
 
+<p align="center">
+  <strong>Timestamp Bookmarks for YouTube™</strong><br>
+  Bookmark moments in YouTube videos and Shorts, add notes, and jump back to them in one click.
+</p>
 
-<!-- TABLE OF CONTENTS -->
-<details open="open">
-  <summary>Table of Contents</summary>
-  <ol>
-    <li>
-      <a href="#about-the-project">About The Project</a>
-      <ul>
-        <li><a href="#built-with">Built With</a></li>
-      </ul>
-    </li>
-    <li><a href="#features">Features</a></li>
-    <li><a href="#videos-with-bookmarks">Videos With Bookmarks</a></li>
-    <li><a href="#bookmarks-for-this-video">Bookmarks For This Video</a></li>
-    <li><a href="#settings">Settings</a></li>
-    <li><a href="#license">License</a></li>
-    <li><a href="#acknowledgements">Acknowledgements</a></li>
-  </ol>
-</details>
+<!-- TODO: Replace "#" with the Chrome Web Store link once the extension is published. -->
+<p align="center">
+  <a href="#"><strong>Get it on the Chrome Web Store</strong></a>
+</p>
 
+<!-- TODO (screenshot): A short demo GIF (about 10 seconds): click the bookmark button in the player → the popup opens → click a bookmark → the video jumps to it. -->
+<p align="center">
+  <img src="DEMO_GIF_URL" alt="Markback demo: saving a bookmark and jumping back to it" width="720">
+</p>
 
-
-<!-- ABOUT THE PROJECT -->
-## About The Project
-
-YouTube Timestamp Bookmarker is a Chrome Extension that allows you to bookmark timestamps in YouTube videos, add notes to those bookmarks, and see a history of every video that you've bookmarked.
-
-### Built With
-
-* HTML
-* CSS
-* JavaScript
+<!-- TODO (screenshots): 3 popup screenshots side by side: "Bookmarks For This Video", "Videos With Bookmarks", and "Settings". -->
+<p align="center">
+  <img src="SCREENSHOT_CURRENT_VIDEO_URL" alt="Bookmarks for the current video" width="240">
+  <img src="SCREENSHOT_VIDEOS_LIST_URL" alt="List of videos with bookmarks" width="240">
+  <img src="SCREENSHOT_SETTINGS_URL" alt="Settings" width="240">
+</p>
 
 ## Features
-- Add a bookmark for a specific timestamp on the current video.
-- Each bookmark for the current video will allow you to play the video from that timestamp, add a note, or delete that bookmark.
-- Show a picture of the frame from the video at the bookmark's timestamp.
-- Show a progress bar showing how much time is left until you reach the bookmark.
-- Delete all bookmarks for a specific video.
-- Show a history of videos with at least one bookmark.
-- Delete all bookmarks for ALL videos.
-- Settings modal that will allow you to sort bookmarks and switch on or off special features.
 
-## Videos With Bookmarks
+**Save**
 
-<img src="https://github.com/user-attachments/assets/090f2c5d-e570-40ee-8ed0-26f81c842a74" height="400" />
-<img src="https://github.com/user-attachments/assets/65579e35-ea88-4806-b832-7d1ccc6aa5cc" height="400" />
-<img src="https://github.com/user-attachments/assets/a53050f5-97a2-420a-ba36-a35af730681b" height="400" />
+- Bookmark the current moment with one click using the button in the YouTube player.
+- Works on regular videos and Shorts.
+- Add a note to any bookmark.
 
-- Shows a list of YouTube videos that have at least one bookmark.
-- When a video is clicked, you will be redirected to that YouTube video’s page.
-- When the “Delete” icon is clicked, all of the bookmarks for that video will be deleted.
-- When the “Delete All Bookmarks” button is clicked, all bookmarks for all videos will be deleted.
-  
+**Revisit**
 
-## **Bookmarks For This Video**
+- See every bookmark for the video you're watching, with a preview frame of each moment.
+- Play from any bookmark with one click.
+- A progress bar under each bookmark shows how close the video is to reaching it.
+- The list can automatically scroll to the next bookmark as the video plays.
+- Optionally split the video into parts at your bookmarks. The player then shows "Part X/X" and the time within the current part.
 
-<img src="https://github.com/user-attachments/assets/0a7e263d-c57a-409d-a77f-2eda512406af" height="400" />
-<div>
-  <img src="https://github.com/user-attachments/assets/4be3679a-fba8-4a43-b046-18e6861e1d8a" height="400" />
-  <img src="https://github.com/user-attachments/assets/c3e7784c-bcf8-41ed-9af4-baf6ab094575" height="400" />
-</div>
+**Organize**
 
-- Shows a list of all of the bookmarks for the video for specific timestamps.
-- When the timestamp’s frame or “play” button is clicked, it will go to that timestamp in the video and play it.
-- When the “Edit” button is clicked, a edit textbox will be opened which will allow you to add or edit a note for that timestamp.
-    - When “Cancel” is clicked, it will close the textbox without making any changes to the note.
-    - When “Submit” is clicked, it will also close the textbox and change the note to the new text.
-- When the “Delete” button is clicked, the bookmark for that specific timestamp will be deleted.
-- When “Delete Video Bookmarks” is clicked, delete all of the bookmarks for the current video.
+- See every video you've bookmarked, sorted by most or least recently updated, or by number of bookmarks.
+- Delete a single bookmark, all bookmarks for a video, or everything.
+
+**Back up**
+
+- Export all your bookmarks to a file and import them on another computer.
+
+**Accessible**
+
+- Everything in the popup works with the keyboard and screen readers.
+
+## How to use
+
+1. Open any YouTube video or Short.
+2. Click the **bookmark button** in the player (a ribbon with a small clock) to save the current moment.
+3. Click the **Markback icon** in Chrome's toolbar to see your bookmarks. Click one to jump back to it.
 
 ## Settings
 
-<img src="https://github.com/user-attachments/assets/44ffcbd4-f2fb-4ac9-8a5d-ee13c20f1b9f" height="400" />
+Open the popup and click the gear icon.
 
-- Sort By (Videos With Bookmarks)
-    - Most Recently Updated → Sorts from “Most Recently Updated” to “Least Recently Updated”.
-      - <img src="https://github.com/user-attachments/assets/82f9eded-4bc9-4f46-8a69-5139f4107ab8" height="400" />
-    - Least Recently Updated → Sorts from “Least Recently Updated” to “Most Recently Updated”.
-      - <img src="https://github.com/user-attachments/assets/7b801fed-2ad8-473e-843d-e258371fa5d3" height="400" />
-    - Most Bookmarks → Sorts from “Most Bookmarks” to “Least Bookmarks”
-      - <img src="https://github.com/user-attachments/assets/3cbe3774-c366-4641-a6a0-e4f65841b272" height="400" />
-    - Least Bookmarks → Sorts from “Least Bookmarks” to “Most Bookmarks”
-      - <img src="https://github.com/user-attachments/assets/cc38b920-215d-4f29-bab1-07634b00cfaf" height="400" />
-- Other (For “Bookmarks For This Video”)
-    - Capture Frames
-        - If CHECKED, then show the frames or images for each bookmark in the current video.
-          - <img src="https://github.com/user-attachments/assets/56596884-676a-41d5-9843-f3e336bd1d25" height="400" />
-        - If NOT CHECKED, then do NOT show the timestamp frames.
-          - <img src="https://github.com/user-attachments/assets/f592ed61-d4bc-4301-ac4d-8e35bbc094ee" height="400" />
-    - Show Bookmarks Progress Bar
-        - If CHECKED, SHOW a progress bar for each bookmark of the current video. This progress bar will represent how much time is left until we reach it. So, if you’re on a 10:00 minute video and the current time in the video is 4:06 and your next bookmark is at 4:30, then there’s 24 seconds left till’ that so the progress bar for that 4:30 bookmark will keep increasing until you get to the bookmark (4:30).
-          - <img src="https://github.com/user-attachments/assets/f592ed61-d4bc-4301-ac4d-8e35bbc094ee" height="400" />
-        - If NOT CHECKED, DO NOT SHOW the progress bar under each bookmark.
-          - <img src="https://github.com/user-attachments/assets/84ca3407-afbc-4de5-bc5a-6e8dfab63d38" height="400" />
-    - Scroll Next Bookmark Into View
-        - If checked, then when the video is playing while the popup is open and we reach the next bookmark’s timestamp, then scroll to that bookmark automatically.
-        - If not checked, do not automatically scroll to any of the timestamp bookmarks for the current video.
-</div>
+| Setting | What it does | Default |
+| --- | --- | --- |
+| Sort By | How the "Videos With Bookmarks" list is sorted. | Most Recently Updated |
+| Capture Frames | Show a preview frame of the video at each bookmark. | On |
+| Show Bookmarks Progress Bar | Show a bar under each bookmark that fills up as the video gets closer to it. | On |
+| Scroll Next Bookmark Into View | Automatically scroll the list to the next bookmark while the video plays. | On |
+| Split Video Into Parts | Treat the sections between bookmarks as parts. The player shows "Part X/X" and the time within the current part. | Off |
+| Export / Import Bookmarks | Save all your bookmarks to a file, or load them from one. | |
 
+## Privacy
 
+Markback doesn't collect or send any data. Your bookmarks and settings are stored in your own Chrome storage and synced only through your own Chrome profile. See the full [privacy policy](PRIVACY.md).
 
-<!-- LICENSE -->
-## License
+## FAQ
 
-Distributed under the MIT License. See `LICENSE` for more information.
+**Where are my bookmarks stored?**
+In Chrome's sync storage. If you're signed in to Chrome with sync turned on, they show up on your other computers too.
 
+**How do I move my bookmarks to another computer?**
+If Chrome sync is on, they move automatically. Otherwise, use **Export Bookmarks** in Settings, then **Import Bookmarks** on the other computer.
 
-<!-- ACKNOWLEDGEMENTS -->
-## Acknowledgements
-* <div>Icons made by <a href="https://www.freepik.com" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
+**Is there a limit to how many bookmarks I can save?**
+Chrome's sync storage is small: about 100 KB in total and about 8 KB per video. That's enough for a lot of bookmarks, but very long notes use it up faster. Export your bookmarks every now and then as a backup.
+
+**Why didn't the popup open after I added a bookmark?**
+Chrome can't open the popup while the video is in fullscreen. The bookmark is still saved, so just click the Markback icon after leaving fullscreen.
+
+## Feedback
+
+Found a bug or have an idea? [Open an issue](https://github.com/curlos/markback/issues).
+
+---
+
+<sub>YouTube is a trademark of Google LLC. Markback is not affiliated with or endorsed by YouTube or Google.</sub>

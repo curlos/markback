@@ -45,10 +45,10 @@ reel-action-bar-view-model .bookmark-btn:hover {
 	@keyframes bookmark-btn-saved-fill {
 		0%,
 		70% {
-			fill: #ff0033;
+			fill: #5b5bd6;
 		}
 		100% {
-			fill: rgba(255, 0, 51, 0);
+			fill: rgba(91, 91, 214, 0);
 		}
 	}
 }

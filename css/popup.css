@@ -125,7 +125,7 @@ body {
 
 .loader {
 	border: 8px solid #f3f3f3; /* Light grey */
-	border-top: 8px solid red; /* Blue */
+	border-top: 8px solid #7b7bf0; /* Indigo */
 	border-radius: 50%;
 	width: 60px;
 	height: 60px;
@@ -305,7 +305,7 @@ svg {
 }
 
 input:checked + .slider {
-	background-color: red;
+	background-color: #7b7bf0;
 }
 
 input:focus-visible + .slider {
@@ -395,10 +395,10 @@ input:checked + .slider:before {
 }
 
 .form-buttons-wrapper button.submit-button {
-	background-color: red;
+	background-color: #5b5bd6;
 }
 .form-buttons-wrapper button.submit-button:hover {
-	background-color: rgb(255, 51, 51);
+	background-color: #4f4fc4;
 }
 
 .form-buttons-wrapper button.cancel-button {
@@ -423,7 +423,7 @@ input:checked + .slider:before {
 .progress-bar {
 	position: absolute;
 	height: 100%;
-	background-color: red; /* Progress fill color */
+	background-color: #7b7bf0; /* Progress fill color */
 	transition: width 0.3s ease; /* Smooth transition for progress */
 }
 
@@ -432,7 +432,7 @@ input:checked + .slider:before {
 	top: -3px; /* Center the thumb vertically */
 	height: 11px;
 	width: 11px;
-	background-color: red; /* Thumb color */
+	background-color: #7b7bf0; /* Thumb color */
 	border-radius: 50%; /* Makes the thumb circular */
 	transition: left 0.3s ease; /* Smooth movement */
 	pointer-events: none; /* Makes the thumb non-interactable */

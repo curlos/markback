@@ -170,11 +170,11 @@ const createAndGetBookmarkBtnElement = () => {
 	bookmarkSvgContainer.addEventListener('animationend', () => {
 		bookmarkSvgContainer.classList.remove('bookmark-btn-saved');
 	});
-	// A bookmark ribbon with a red clock (like the extension's icon) so it doesn't look like YouTube's own "Save" button. It's 24x24 like YouTube's other player icons.
+	// A bookmark ribbon with an indigo clock (like the extension's icon) so it doesn't look like YouTube's own "Save" button. It's 24x24 like YouTube's other player icons.
 	bookmarkSvgContainer.innerHTML = `
 		<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
 			<path class="bookmark-btn-ribbon" d="M5 3.5A1.5 1.5 0 0 1 6.5 2h9A1.5 1.5 0 0 1 17 3.5V21l-6-4-6 4z" fill="none" stroke="white" stroke-width="2" stroke-linejoin="round" />
-			<circle cx="17.5" cy="16.5" r="5" fill="#ff0033" />
+			<circle cx="17.5" cy="16.5" r="5" fill="#5b5bd6" />
 			<path d="M17.5 13.8v2.7l1.8 1.1" fill="none" stroke="white" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
 		</svg>`;
 

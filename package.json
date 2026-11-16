@@ -1,10 +1,11 @@
 {
-	"name": "youtube-timestamp-bookmark-chrome-extension",
+	"name": "markback",
 	"version": "1.0.0",
 	"description": "",
 	"main": "index.js",
 	"scripts": {
 		"dev": "node scripts/dev-reload-server.js",
+		"zip": "rm -f extension.zip && zip -r extension.zip manifest.json popup.html import.html js css assets -x '*.DS_Store'",
 		"test": "jest --watchAll",
 		"lint": "eslint . --ext js,css,json --report-unused-disable-directives --max-warnings 0",
 		"formatAllFilesPrettier": "npx prettier --write '**/*.{js,css,json}'"

@@ -1,7 +1,7 @@
 {
-	"name": "YouTube Video Timestamp Bookmarks",
-	"version": "0.1.0",
-	"description": "Saving timestamps in YT videos",
+	"name": "Markback – Timestamp Bookmarks for YouTube™",
+	"version": "1.0.0",
+	"description": "Bookmark moments in YouTube videos and Shorts, add notes, and jump back to them in one click.",
 	"permissions": ["storage"],
 	"host_permissions": ["https://*.youtube.com/*"],
 	"background": {
@@ -27,7 +27,7 @@
 			"48": "assets/icon-48.png",
 			"128": "assets/icon-128.png"
 		},
-		"default_title": "YouTube Video Timestamp Bookmark",
+		"default_title": "Markback",
 		"default_popup": "popup.html"
 	},
 	"manifest_version": 3
