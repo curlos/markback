@@ -19,9 +19,13 @@
 </p>
 
 <p align="center">
-  <img src="store-assets/screenshots/2-shorts.jpg" alt="The bookmark button in the YouTube Shorts action bar" width="266">
-  <img src="store-assets/screenshots/3-videos.jpg" alt="The list of all videos with bookmarks" width="266">
-  <img src="store-assets/screenshots/4-settings.jpg" alt="Markback settings" width="266">
+  <img src="store-assets/screenshots/5-notes.jpg" alt="Adding a note to a bookmark in the Markback popup" width="400">
+  <img src="store-assets/screenshots/2-shorts.jpg" alt="The bookmark button in the YouTube Shorts action bar" width="400">
+</p>
+
+<p align="center">
+  <img src="store-assets/screenshots/3-videos.jpg" alt="The list of all videos with bookmarks" width="400">
+  <img src="store-assets/screenshots/4-settings.jpg" alt="Markback settings" width="400">
 </p>
 
 ## Features

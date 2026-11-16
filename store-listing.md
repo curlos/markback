@@ -31,6 +31,18 @@ Your bookmarks are saved in your own Chrome storage and synced with your Chrome 
 This extension is not affiliated with or endorsed by YouTube or Google.
 ```
 
+**Homepage URL:**
+
+```
+https://github.com/curlos/markback
+```
+
+**Support URL:**
+
+```
+https://github.com/curlos/markback/issues
+```
+
 ## Privacy tab
 
 **Single purpose:**
