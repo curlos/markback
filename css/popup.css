@@ -196,6 +196,12 @@ body {
 	gap: 10px;
 }
 
+/* The "No videos with bookmarks yet" message. Same padding as the video rows. */
+.sidebar-video-list .row {
+	display: block;
+	padding: 8px;
+}
+
 .video-with-bookmarks:hover {
 	background-color: rgb(79, 79, 79);
 	cursor: pointer;
