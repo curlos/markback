@@ -20,34 +20,36 @@ reel-action-bar-view-model .bookmark-btn:hover {
 	background-color: rgba(255, 255, 255, 0.2);
 }
 
-/* Short "pop" animation that plays when a bookmark is added successfully. */
-.bookmark-btn-saved svg {
-	animation: bookmark-btn-saved-pop 0.6s ease-out;
-}
+/* Short "pop" animation that plays when a bookmark is added successfully (skipped for users who prefer reduced motion). */
+@media (prefers-reduced-motion: no-preference) {
+	.bookmark-btn-saved svg {
+		animation: bookmark-btn-saved-pop 0.6s ease-out;
+	}
 
-.bookmark-btn-saved .bookmark-btn-ribbon {
-	animation: bookmark-btn-saved-fill 0.6s ease-out;
-}
+	.bookmark-btn-saved .bookmark-btn-ribbon {
+		animation: bookmark-btn-saved-fill 0.6s ease-out;
+	}
 
-@keyframes bookmark-btn-saved-pop {
-	0% {
-		transform: scale(1);
+	@keyframes bookmark-btn-saved-pop {
+		0% {
+			transform: scale(1);
+		}
+		40% {
+			transform: scale(1.4) rotate(-10deg);
+		}
+		100% {
+			transform: scale(1);
+		}
 	}
-	40% {
-		transform: scale(1.4) rotate(-10deg);
-	}
-	100% {
-		transform: scale(1);
-	}
-}
 
-@keyframes bookmark-btn-saved-fill {
-	0%,
-	70% {
-		fill: #ff0033;
-	}
-	100% {
-		fill: rgba(255, 0, 51, 0);
+	@keyframes bookmark-btn-saved-fill {
+		0%,
+		70% {
+			fill: #ff0033;
+		}
+		100% {
+			fill: rgba(255, 0, 51, 0);
+		}
 	}
 }
 

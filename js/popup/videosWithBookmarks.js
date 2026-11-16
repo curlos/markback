@@ -12,7 +12,7 @@ export const renderLeftMenuButton = () => {
 	});
 };
 
-export const toggleVideosWithBookmarksSidebarModal = () => {
+const toggleVideosWithBookmarksSidebarModal = () => {
 	const sidebarSettingsWrapper = document.getElementById('sidebar-settings-wrapper');
 	sidebarSettingsWrapper.classList.remove('sidebar-shown-right');
 
@@ -42,10 +42,12 @@ export const toggleVideosWithBookmarksSidebarModal = () => {
  */
 export const renderSidebarModalWithVideos = async () => {
 	const sidebarVideoListElem = document.querySelector('.sidebar-video-list');
-	sidebarVideoListElem.innerHTML = '';
 
 	await fetchUserSettings();
 	await getAllVideosWithBookmarks();
+
+	// Clear the list only after the awaits above so that two renders running at the same time (like changing the sort quickly) can't both add their videos.
+	sidebarVideoListElem.innerHTML = '';
 
 	// Sort the videos from most recently updated to least recently updated.
 	const sortedVideosWithBookmarksVideoIds = Object.keys(state.allVideosWithBookmarks).sort((a, b) => {
@@ -84,7 +86,7 @@ export const renderSidebarModalWithVideos = async () => {
 		sidebarVideoListElem.appendChild(videoWithBookmarksElem);
 	});
 
-	await renderDeleteAllBookmarksButton();
+	renderDeleteAllBookmarksButton();
 };
 
 const getVideoWithBookmarksElem = (videoId) => {
@@ -94,13 +96,17 @@ const getVideoWithBookmarksElem = (videoId) => {
 	videoWithBookmarksElem.className = 'video-with-bookmarks';
 
 	const thumbnailImageElement = document.createElement('img');
-	thumbnailImageElement.src = video.thumbnailImageSrc;
+	// Build the thumbnail from the video ID so it's always the right one. "hqdefault" works for both videos and Shorts (Shorts get their thumbnail in the middle with blurred sides).
+	thumbnailImageElement.src = `https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`;
+	// Empty "alt" because the title next to the thumbnail already names the video.
+	thumbnailImageElement.alt = '';
 
 	const videoInfoElem = document.createElement('div');
 
-	const titleElement = document.createElement('div');
+	// A button so that keyboard users can reach it. Its click bubbles up to the video container's click listener below.
+	const titleElement = document.createElement('button');
 	titleElement.textContent = video.title;
-	titleElement.className = 'video-with-bookmarks-title';
+	titleElement.className = 'video-with-bookmarks-title reset-button';
 
 	const bookmarksNumberElement = document.createElement('div');
 	bookmarksNumberElement.textContent =
@@ -109,8 +115,9 @@ const getVideoWithBookmarksElem = (videoId) => {
 	const deleteIconOuterWrapper = document.createElement('div');
 	deleteIconOuterWrapper.className = 'delete-icon-outer-wrapper';
 
-	const deleteIconInnerWrapper = document.createElement('div');
-	deleteIconInnerWrapper.className = 'delete-icon-inner-wrapper';
+	const deleteIconInnerWrapper = document.createElement('button');
+	deleteIconInnerWrapper.className = 'delete-icon-inner-wrapper reset-button';
+	deleteIconInnerWrapper.setAttribute('aria-label', 'Delete bookmarks for this video');
 	deleteIconInnerWrapper.innerHTML = getIconSVG('delete');
 
 	deleteIconInnerWrapper.addEventListener('click', async (e) => {
@@ -152,23 +159,19 @@ const getVideoWithBookmarksElem = (videoId) => {
 /**
  * @description Render the "Delete All Bookmarks" button at the bottom of the "Video With Bookmarks" sidebar modal view. When clicked, it will remove all videos and their bookmarks from the Chrome Storage.
  */
-export const renderDeleteAllBookmarksButton = async () => {
-	await getAllVideosWithBookmarks();
-
-	if (!state.allVideosWithBookmarks || Object.keys(state.allVideosWithBookmarks).length === 0) {
-		return;
-	}
-
+const renderDeleteAllBookmarksButton = () => {
+	// NOTE: Only called by "renderSidebarModalWithVideos" after it has checked that there are videos with bookmarks.
 	const sidebarVideoListElem = document.querySelector('.sidebar-video-list');
 
 	const deleteAllBookmarksButtonWrapper = document.createElement('div');
 	deleteAllBookmarksButtonWrapper.className = 'delete-all-bookmarks-button-wrapper';
 
-	const deleteAllBookmarksButton = document.createElement('div');
+	const deleteAllBookmarksButton = document.createElement('button');
 	deleteAllBookmarksButton.className = 'delete-all-bookmarks-button';
 	deleteAllBookmarksButton.textContent = 'Delete All Bookmarks';
 
-	deleteAllBookmarksButtonWrapper.addEventListener('click', async () => {
+	// Listen on the button itself (not the full-width wrapper) so that clicking the empty space around it doesn't delete everything.
+	deleteAllBookmarksButton.addEventListener('click', async () => {
 		const videoIdsToRemove = Object.keys(state.allVideosWithBookmarks);
 		await Promise.all(videoIdsToRemove.map((videoId) => chrome.storage.sync.remove(videoId)));
 		await handleFilteredBookmarks();

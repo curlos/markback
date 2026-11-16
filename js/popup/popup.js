@@ -4,14 +4,36 @@ import { renderLeftMenuButton, renderSidebarModalWithVideos } from './videosWith
 import { renderRightSettingsButton, renderSettingsModalContent } from './settings.js';
 
 /**
+ * @description Only the view that is showing (the current video's bookmarks, the "Videos With Bookmarks" sidebar or the "Settings" sidebar) can be clicked or reached with the Tab key. The hidden ones are made "inert" since they're only moved off screen or covered, not removed.
+ */
+const updateInertViews = () => {
+	const sidebarVideosWrapper = document.getElementById('sidebar-videos-wrapper');
+	const sidebarSettingsWrapper = document.getElementById('sidebar-settings-wrapper');
+	const isVideosSidebarOpen = sidebarVideosWrapper.classList.contains('sidebar-shown');
+	const isSettingsSidebarOpen = sidebarSettingsWrapper.classList.contains('sidebar-shown-right');
+
+	sidebarVideosWrapper.inert = !isVideosSidebarOpen;
+	sidebarSettingsWrapper.inert = !isSettingsSidebarOpen;
+	document.getElementById('bookmarks').inert = isVideosSidebarOpen || isSettingsSidebarOpen;
+};
+
+/**
  * @description Once the DOM Content has loaded, check if we're on a YouTube video page and if we are, get all the bookmarks for that video and show them.
  */
 document.onreadystatechange = async () => {
 	if (document.readyState === 'complete') {
+		// The sidebars are opened and closed by toggling their classes in several places, so update which view is inert whenever those classes change.
+		const sidebarObserver = new MutationObserver(updateInertViews);
+		['sidebar-videos-wrapper', 'sidebar-settings-wrapper'].forEach((id) => {
+			sidebarObserver.observe(document.getElementById(id), { attributes: true, attributeFilter: ['class'] });
+		});
+		updateInertViews();
+
 		const activeTab = await getActiveTab();
 		state.activeTab = activeTab;
 
-		const queryParams = activeTab.url.split('?')[1];
+		// "url" is only available for YouTube tabs (from "host_permissions"), so it's undefined on other websites.
+		const queryParams = (activeTab.url || '').split('?')[1];
 		const urlParams = new URLSearchParams(queryParams);
 
 		const isYouTubeFullVideo = activeTab.url && activeTab.url.includes('youtube.com/watch');

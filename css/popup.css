@@ -14,6 +14,18 @@ body {
 	font-size: 14px;
 }
 
+/* Makes a <button> look like plain content so that clickable icons and text can be real (keyboard accessible) buttons without changing how they look. */
+.reset-button {
+	background: none;
+	border: none;
+	padding: 0;
+	margin: 0;
+	color: inherit;
+	font: inherit;
+	text-align: inherit;
+	cursor: pointer;
+}
+
 .container {
 	width: 100%;
 	color: white;
@@ -52,7 +64,6 @@ body {
 .bookmark-container textarea {
 	background: transparent;
 	resize: none;
-	outline: none;
 	border: none;
 	background-color: #636363;
 	color: white;
@@ -234,7 +245,9 @@ body {
 .delete-video-bookmarks-button,
 .delete-all-bookmarks-button {
 	background-color: rgba(217, 77, 77, 0.25);
-	color: red;
+	color: #ffb3b3;
+	border: none;
+	font-family: inherit;
 	padding: 8px;
 	font-size: 14px;
 	cursor: pointer;
@@ -295,8 +308,9 @@ input:checked + .slider {
 	background-color: red;
 }
 
-input:focus + .slider {
-	box-shadow: 0 0 1px red;
+input:focus-visible + .slider {
+	outline: 2px solid white;
+	outline-offset: 2px;
 }
 
 input:checked + .slider:before {
@@ -374,7 +388,6 @@ input:checked + .slider:before {
 	width: 100%;
 	border-radius: 5px;
 	padding: 7px;
-	outline: none;
 	border: none;
 	color: white;
 	cursor: pointer;
@@ -432,7 +445,7 @@ input:checked + .slider:before {
 }
 
 .gray-bookmark-time {
-	color: gray;
+	color: #a0a0a0;
 }
 .backup-buttons {
 	display: flex;
@@ -452,4 +465,10 @@ input:checked + .slider:before {
 
 .backup-button:hover {
 	background-color: #787878;
+}
+
+/* Show where the keyboard focus is. */
+:focus-visible {
+	outline: 2px solid white;
+	outline-offset: 2px;
 }

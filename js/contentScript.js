@@ -67,18 +67,19 @@ const handleAddNewBookmark = async () => {
 		await fetchBookmarks();
 		const newCurrentVideoBookmarks = [...currentVideoBookmarks, newBookmark].sort((a, b) => a.time - b.time);
 
-		// Remove YouTube's notification count (like "(795) ") and " - YouTube" from the page title.
-		const title = ((currentVideoFullObj && currentVideoFullObj.title) || document.title)
-			.replace(/^\(\d+\)\s*/, '')
-			.replace(/\s*-\s*YouTube$/, '');
-		// Always build the thumbnail from the video ID so that a wrong thumbnail saved by an older version gets replaced.
-		const thumbnailImageSrc = getThumbnailUrl();
+		// Get the real video title from the player's title (it updates right away when moving to another video, unlike the page title).
+		const playerSelector = currentVideoType === 'shorts' ? '#shorts-player' : '#movie_player';
+		const playerTitleElem = document.querySelector(`${playerSelector} .ytp-title-link`);
+		// If the player's title isn't found, fall back to the saved title or the page title without YouTube's notification count (like "(795) ") and " - YouTube".
+		const title =
+			(playerTitleElem && playerTitleElem.textContent) ||
+			(currentVideoFullObj && currentVideoFullObj.title) ||
+			document.title.replace(/^\(\d+\)\s*/, '').replace(/\s*-\s*YouTube$/, '');
 		const videoType = currentVideoType;
 
 		const newCurrentVideoBookmarksStr = JSON.stringify({
 			bookmarks: newCurrentVideoBookmarks,
 			title,
-			thumbnailImageSrc,
 			videoType,
 			updatedAt: new Date(),
 		});
@@ -105,24 +106,6 @@ const handleAddNewBookmark = async () => {
 			bookmarkButton.disabled = false;
 		});
 	}
-};
-
-/**
- * @description Gets the thumbnail's image URL for a video.
- * @returns {String}
- */
-const getThumbnailUrl = () => {
-	if (currentVideoType === 'watch') {
-		// Build the thumbnail URL from the video id. This is always correct for the current video, unlike reading it from the page's DOM which could be stale or fail to parse.
-		return `https://i.ytimg.com/vi/${currentVideoId}/hqdefault.jpg`;
-	}
-
-	if (currentVideoType === 'shorts') {
-		// This doesn't technically get the thumbnail but rather the first frame of the video "frame0". It's possible to get the thumbnail of a short in the elements but as soon as you scroll to the next short, that DOM element will become stale and will reference the previous short (or the first short). Thus, the most reliable "thumbnail" image is the first frame of the video.
-		return `https://i.ytimg.com/vi/${currentVideoId}/frame0.jpg`;
-	}
-
-	return '';
 };
 
 /**
@@ -181,6 +164,7 @@ const createAndGetBookmarkBtnElement = () => {
 
 	bookmarkSvgContainer.className = 'ytp-button bookmark-btn';
 	bookmarkSvgContainer.title = 'Bookmark this timestamp';
+	bookmarkSvgContainer.setAttribute('aria-label', 'Bookmark this timestamp');
 	bookmarkSvgContainer.addEventListener('click', handleAddNewBookmark);
 	// Remove the "saved" animation class once it finishes so that it can play again next time.
 	bookmarkSvgContainer.addEventListener('animationend', () => {
@@ -229,7 +213,7 @@ chrome.runtime.onMessage.addListener(async (obj) => {
 
 			const bookmarkButtons = Array.from(document.querySelectorAll('.bookmark-btn'));
 
-			// If we don't need to capture frames, then return the current bookmarks. These bookmarks will have no "thumbnailImageSrc".
+			// If we don't need to capture frames, then return the current bookmarks. These bookmarks will have no "dataUrl" (captured frame).
 			if (!userSettings.captureFrames) {
 				bookmarkButtons.forEach((bookmarkButton) => {
 					bookmarkButton.disabled = false;

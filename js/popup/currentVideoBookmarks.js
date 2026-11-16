@@ -30,7 +30,7 @@ export const renderDeleteVideoBookmarksButton = () => {
 	const deleteVideoBookmarksButtonWrapper = document.createElement('div');
 	deleteVideoBookmarksButtonWrapper.className = 'delete-video-bookmarks-button-wrapper';
 
-	const deleteVideoBookmarksButton = document.createElement('div');
+	const deleteVideoBookmarksButton = document.createElement('button');
 	deleteVideoBookmarksButton.className = 'delete-video-bookmarks-button';
 	deleteVideoBookmarksButton.textContent = 'Delete Video Bookmarks';
 
@@ -149,7 +149,8 @@ export const addNewBookmarkElem = async (
 			() => {
 				handlePlayVideo(videoTimeToPlay);
 			},
-			controlsElement
+			controlsElement,
+			'Play from this bookmark'
 		);
 
 		setControlBookmarkSVGElem(
@@ -157,7 +158,8 @@ export const addNewBookmarkElem = async (
 			() => {
 				toggleEditNoteForm();
 			},
-			controlsElement
+			controlsElement,
+			'Edit note'
 		);
 
 		setControlBookmarkSVGElem(
@@ -165,7 +167,8 @@ export const addNewBookmarkElem = async (
 			() => {
 				handleDeleteBookmark(bookmark.time);
 			},
-			controlsElement
+			controlsElement,
+			'Delete bookmark'
 		);
 	};
 
@@ -179,6 +182,8 @@ export const addNewBookmarkElem = async (
 		controlsElement.className = 'bookmark-controls';
 
 		showCapturedFrames && (timestampImgElement.src = dataUrl);
+		// Empty "alt" because the image is decorative (the "Play" button next to it does the same thing).
+		showCapturedFrames && (timestampImgElement.alt = '');
 		showCapturedFrames && (timestampImgElement.className = 'timestamp-img');
 		showCapturedFrames &&
 			timestampImgElement.addEventListener('click', () => {
@@ -203,6 +208,7 @@ export const addNewBookmarkElem = async (
 	const addFormWithTextareaAndButtons = () => {
 		noteElement.textContent = bookmark.note || '';
 		textareaElement.textContent = bookmark.note || '';
+		textareaElement.setAttribute('aria-label', 'Note');
 
 		textareaElement.addEventListener('input', function () {
 			this.style.height = 'auto'; // Reset the height
@@ -358,11 +364,13 @@ export const addNewBookmarkElem = async (
  * @param {String} name
  * @param {Function} callback
  * @param {HTMLElement} controlParentElement
+ * @param {String} label What the button does, for screen readers (the button only shows an icon).
  */
-export const setControlBookmarkSVGElem = (name, callback, controlParentElement) => {
-	const controlElement = document.createElement('div');
+export const setControlBookmarkSVGElem = (name, callback, controlParentElement, label) => {
+	const controlElement = document.createElement('button');
 	controlElement.innerHTML = getIconSVG(name);
-	controlElement.className = 'svg-wrapper';
+	controlElement.className = 'svg-wrapper reset-button';
+	controlElement.setAttribute('aria-label', label);
 
 	controlElement.addEventListener('click', callback);
 	controlParentElement.appendChild(controlElement);

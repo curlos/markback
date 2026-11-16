@@ -1,5 +1,5 @@
 <!doctype html>
-<html>
+<html lang="en">
 	<head>
 		<meta charset="utf-8" />
 		<title>Import Bookmarks</title>
@@ -13,8 +13,8 @@
 				Choose a file that was exported with the "Export Bookmarks" button. Videos in the file will be added to your
 				bookmarks. If a video already has bookmarks, they will be replaced by the ones in the file.
 			</p>
-			<input id="import-file-input" type="file" accept=".json,application/json" />
-			<p id="import-message" class="import-message"></p>
+			<input id="import-file-input" type="file" aria-label="Bookmarks file" accept=".json,application/json" />
+			<p id="import-message" class="import-message" role="status"></p>
 		</div>
 	</body>
 </html>

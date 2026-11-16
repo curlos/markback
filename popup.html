@@ -9,14 +9,14 @@
 <script type="module" src="js/popup/videosWithBookmarks.js"></script>
 <script type="module" src="js/popup/settings.js"></script>
 
-<!-- Main Popup file that will use the functions from the above scripts to run. No imports required since everything set globally. -->
+<!-- Main Popup file that imports the functions from the above scripts to run. -->
 <script type="module" src="js/popup/popup.js"></script>
 
 <div class="container">
     <div class="top-bar">
-        <div id="menu-svg-wrapper"></div>
+        <button id="menu-svg-wrapper" class="reset-button" aria-label="Videos with bookmarks"></button>
         <div class="title">Bookmarks For This Video</div>
-        <div id="settings-svg-wrapper"></div>
+        <button id="settings-svg-wrapper" class="reset-button" aria-label="Settings"></button>
     </div>
 
     <div class="bookmarks-outer-wrapper">
