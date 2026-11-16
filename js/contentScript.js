@@ -279,7 +279,8 @@ chrome.runtime.onMessage.addListener(async (obj) => {
 						dataUrl,
 					});
 				} catch (error) {
-					console.error(error);
+					// A warning (not an error) since the bookmark still shows up, just without its frame.
+					console.warn('Could not capture the frame:', error);
 
 					// Still return the bookmark (without a frame) so that it shows up in the popup.
 					newCurrentVideoBookmarksWithFrames.push(bookmark);

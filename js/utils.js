@@ -61,12 +61,15 @@ const captureFrameAtTimestamp = async (videoElement, timestamp) => {
 	}
 
 	return new Promise((resolve, reject) => {
-		if (videoElement.readyState < 2) {
-			reject('Video is not ready for playback');
-			return;
-		}
+		// Moving the video to the timestamp loads that part of the video, so there's no need for it to be ready beforehand. But if it never finishes loading, give up on this frame instead of waiting forever.
+		const timeoutId = setTimeout(() => {
+			videoElement.removeEventListener('seeked', onSeeked);
+			reject('Timed out loading the frame');
+		}, 5000);
 
 		const onSeeked = () => {
+			clearTimeout(timeoutId);
+
 			try {
 				// Create a canvas, draw the videoElement at that specific timestamp, and convert it to a dataUrl.
 				const canvas = document.createElement('canvas');

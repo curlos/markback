@@ -14,16 +14,14 @@
   <a href="#"><strong>Get it on the Chrome Web Store</strong></a>
 </p>
 
-<!-- TODO (screenshot): A short demo GIF (about 10 seconds): click the bookmark button in the player → the popup opens → click a bookmark → the video jumps to it. -->
 <p align="center">
-  <img src="DEMO_GIF_URL" alt="Markback demo: saving a bookmark and jumping back to it" width="720">
+  <img src="store-assets/screenshots/1-bookmarks.jpg" alt="The bookmark button in the YouTube player next to the Markback popup showing the video's bookmarks" width="800">
 </p>
 
-<!-- TODO (screenshots): 3 popup screenshots side by side: "Bookmarks For This Video", "Videos With Bookmarks", and "Settings". -->
 <p align="center">
-  <img src="SCREENSHOT_CURRENT_VIDEO_URL" alt="Bookmarks for the current video" width="240">
-  <img src="SCREENSHOT_VIDEOS_LIST_URL" alt="List of videos with bookmarks" width="240">
-  <img src="SCREENSHOT_SETTINGS_URL" alt="Settings" width="240">
+  <img src="store-assets/screenshots/2-shorts.jpg" alt="The bookmark button in the YouTube Shorts action bar" width="266">
+  <img src="store-assets/screenshots/3-videos.jpg" alt="The list of all videos with bookmarks" width="266">
+  <img src="store-assets/screenshots/4-settings.jpg" alt="Markback settings" width="266">
 </p>
 
 ## Features

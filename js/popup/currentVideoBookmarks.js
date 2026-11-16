@@ -113,7 +113,8 @@ export const addNewBookmarkElem = async (
 	index,
 	bookmarksWithProgress
 ) => {
-	const showCapturedFrames = state.userSettings.captureFrames;
+	// Only show the frame if one was captured (it can fail, for example, when that part of the video can't be loaded).
+	const showCapturedFrames = state.userSettings.captureFrames && !!dataUrl;
 
 	const bookmarkTitleElement = document.createElement('div');
 	const controlsElement = document.createElement('div');

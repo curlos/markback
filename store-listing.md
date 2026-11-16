@@ -45,7 +45,7 @@ Save timestamped bookmarks (with optional notes) on YouTube videos and Shorts, a
 Used to save the user's bookmarks, notes, and settings in chrome.storage.sync so they persist and sync across the user's own Chrome profile.
 ```
 
-**Permission justification: host permission (https://_.youtube.com/_)**
+**Permission justification: host permission (`https://*.youtube.com/*`)**
 
 ```
 Needed to add the bookmark button to the YouTube player, read the current video's time and title when the user saves a bookmark, jump to a bookmark's time, capture preview frames of the video at each bookmark, and know which video the user is on when the popup is opened. The extension only runs on YouTube.
