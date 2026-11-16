@@ -4,9 +4,9 @@ Not part of the extension (not included in `extension.zip`).
 
 ## Store listing tab
 
-**Category:** Productivity
+**Category:** Productivity → Tools
 
-**Language:** English
+**Language:** English (United States)
 
 **Detailed description:**
 
@@ -45,7 +45,7 @@ Save timestamped bookmarks (with optional notes) on YouTube videos and Shorts, a
 Used to save the user's bookmarks, notes, and settings in chrome.storage.sync so they persist and sync across the user's own Chrome profile.
 ```
 
-**Permission justification: host permission (https://*.youtube.com/*)**
+**Permission justification: host permission (https://_.youtube.com/_)**
 
 ```
 Needed to add the bookmark button to the YouTube player, read the current video's time and title when the user saves a bookmark, jump to a bookmark's time, capture preview frames of the video at each bookmark, and know which video the user is on when the popup is opened. The extension only runs on YouTube.
@@ -56,6 +56,7 @@ Needed to add the bookmark button to the YouTube player, read the current video'
 **Data usage:** check none of the data types (the extension does not collect or transmit any user data; everything stays in the user's own Chrome storage).
 
 Then check all three certifications:
+
 - I do not sell or transfer user data to third parties, outside of the approved use cases.
 - I do not use or transfer user data for purposes that are unrelated to my item's single purpose.
 - I do not use or transfer user data to determine creditworthiness or for lending purposes.

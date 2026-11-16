@@ -2,6 +2,11 @@
 	opacity: 0.5;
 }
 
+/* Hide the bookmark button while an ad is playing (YouTube adds "ad-showing" to the player during ads), since bookmarking an ad would save the ad's time. */
+#movie_player.ad-showing .bookmark-btn {
+	display: none;
+}
+
 /* YouTube Shorts: make the bookmark button look like the other round buttons in the Shorts action bar (like, comment, share, etc.). */
 reel-action-bar-view-model .bookmark-btn {
 	display: flex !important;

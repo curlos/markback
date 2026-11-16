@@ -48,6 +48,11 @@ const fetchBookmarks = async () => {
  * @description Add a new bookmark to the current video using the current time.
  */
 const handleAddNewBookmark = async () => {
+	// Don't save a bookmark while an ad is playing (the time would be the ad's time, not the video's). The button is also hidden during ads in contentScript.css.
+	if (currentVideoType === 'watch' && document.querySelector('#movie_player.ad-showing')) {
+		return;
+	}
+
 	const bookmarkButtons = Array.from(document.querySelectorAll('.bookmark-btn'));
 	bookmarkButtons.forEach((bookmarkButton) => {
 		bookmarkButton.disabled = true;
