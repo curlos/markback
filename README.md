@@ -11,7 +11,7 @@
 
 <!-- TODO: Replace "#" with the Chrome Web Store link once the extension is published. -->
 <p align="center">
-  <a href="#"><strong>Get it on the Chrome Web Store</strong></a>
+  <a href="https://chromewebstore.google.com/detail/markback-%E2%80%93-timestamp-book/ocekekkakaidhegjiddndegpphboaema"><strong>Get it on the Chrome Web Store</strong></a>
 </p>
 
 <p align="center">
